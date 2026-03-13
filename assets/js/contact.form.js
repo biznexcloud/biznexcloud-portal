@@ -1,60 +1,40 @@
-/**
-*
-* -----------------------------------------------------------------------------
-*
-* Template : Braintech - IT Solutions and Technology Startup HTML Template
-* Author : rs-theme
-* Author URI : http://www.rstheme.com/
-*
-* -----------------------------------------------------------------------------
-*
-**/
-
 (function($) {
     'use strict';
-    // Get the form.
+
     var form = $('#contact-form');
-
-    // Get the messages div.
     var formMessages = $('#form-messages');
+    var recipient = 'biznexcloud.com@gmail.com';
 
-    // Set up an event listener for the contact form.
     $(form).submit(function(e) {
-        // Stop the browser from submitting the form.
+        var name = $.trim($('#name').val());
+        var email = $.trim($('#email').val());
+        var phone = $.trim($('#phone').val());
+        var company = $.trim($('#website').val());
+        var message = $.trim($('#message').val());
+
         e.preventDefault();
 
-        // Serialize the form data.
-        var formData = $(form).serialize();
+        if (!name || !email || !phone || !company || !message) {
+            $(formMessages).removeClass('success').addClass('error');
+            $(formMessages).text('Please complete all fields before sending your inquiry.');
+            return;
+        }
 
-        // Submit the form using AJAX.
-        $.ajax({
-            type: 'POST',
-            url: $(form).attr('action'),
-            data: formData
-        })
-        .done(function(response) {
-            // Make sure that the formMessages div has the 'success' class.
-            $(formMessages).removeClass('error');
-            $(formMessages).addClass('success');
+        var subject = encodeURIComponent('New inquiry from ' + name);
+        var body = encodeURIComponent(
+            'Name: ' + name + '\n' +
+            'Email: ' + email + '\n' +
+            'Phone: ' + phone + '\n' +
+            'Company / Website: ' + company + '\n\n' +
+            'Project details:\n' + message
+        );
 
-            // Set the message text.
-            $(formMessages).text(response);
+        window.location.href = 'mailto:' + recipient + '?subject=' + subject + '&body=' + body;
 
-            // Clear the form.
-            $('#name, #email, #phone, #subject, #message').val('');
-        })
-        .fail(function(data) {
-            // Make sure that the formMessages div has the 'error' class.
-            $(formMessages).removeClass('success');
-            $(formMessages).addClass('error');
+        $(formMessages).removeClass('error').addClass('success');
+        $(formMessages).text('Your email client is opening with a pre-filled inquiry to Biznex Cloud.');
 
-            // Set the message text.
-            if (data.responseText !== '') {
-                $(formMessages).text(data.responseText);
-            } else {
-                $(formMessages).text('Oops! An error occured and your message could not be sent.');
-            }
-        });
+        $('#name, #email, #phone, #website, #message').val('');
     });
 
 })(jQuery);

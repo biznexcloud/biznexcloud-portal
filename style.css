@@ -2454,6 +2454,12 @@ blockquote cite:before {
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul.mega-menu.three-column .mega-menu-container .single-megamenu {
   width: 33.33%;
 }
+.full-width-header .rs-header .menu-area .main-menu .rs-menu ul.mega-menu.one-column {
+  min-width: 360px;
+}
+.full-width-header .rs-header .menu-area .main-menu .rs-menu ul.mega-menu.one-column .mega-menu-container .single-megamenu {
+  width: 100%;
+}
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul li a:hover,
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul li.active a,
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul li.current-menu-item > a {
