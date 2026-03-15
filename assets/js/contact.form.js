@@ -3,7 +3,7 @@
 
     var form = $('#contact-form');
     var formMessages = $('#form-messages');
-    var recipient = 'biznexcloud.com@gmail.com';
+    var recipient = 'info@aiotunitech.com';
 
     $(form).submit(function(e) {
         var name = $.trim($('#name').val());
